@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>Message Board</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+  <h1>The Message Board</h1>
+  <form action="/new_message" method="POST">
+    <label>Name:</label>
+    <input type="text" name="name">
+    <label>Message:</label>
+    <textarea name="message" placeholder="Leave your message here...."></textarea>
+    <button>Post message</button>
+  </form>
+
+  <h2>info goes here:</h2>
+  <% for (const i in post) { %>
+    <hr>
+    <h3><%="Name: " + post[i].name %></h3>
+    <h3><%="Message " + post[i].message %></h3>
+
+    <% for (var j = 0; j < post[i].comments.length; j++) { %>
+      <h5><%="Name: " + post[i].comments[j].name %></h5>
+      <h5><%="Comment: " + post[i].comments[j].comment %></h5>
+    <% } %>
+    <h4>leave a comment below:</h4>
+    <form action="/new_comment/<%= post[i]._id %>" method="POST">
+      <label>Name:</label>
+      <input type="text" name="name">
+      <label>Comment:</label>
+      <textarea name="comment" placeholder="Leave your comments here"></textarea>
+      <button>Post comment</button>
+    </form>
+    <% } %>
+    <hr>
+</body>
+</html>
